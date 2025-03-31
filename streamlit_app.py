@@ -36,6 +36,11 @@ if search_button and keyword:
     if results:
         st.write("Found in these videos:")
         for video_id in results:
-            st.markdown(f"[Watch Video](https://www.youtube.com/watch?v={video_id})")
+            # Generate the YouTube thumbnail URL
+            thumbnail_url = f"https://img.youtube.com/vi/{video_id}/hqdefault.jpg"
+            video_url = f"https://www.youtube.com/watch?v={video_id}"
+            
+            # Display thumbnail and video link
+            st.markdown(f'<a href="{video_url}" target="_blank"><img src="{thumbnail_url}" width="320" height="180" /></a>', unsafe_allow_html=True)
     else:
         st.write("No matches found.")
