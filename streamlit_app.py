@@ -45,19 +45,16 @@ if search_button and keyword:
         if st.button("Click to continue (LAG)", key="continue_button"):
             # Update session state to show results
             st.session_state.show_results = True
-            
-    if st.session_state.show_results:
+
+    elif results:
+        # Directly show results if there are 20 or fewer results
         st.write("Found in these videos:")
-        
-        # Set up a grid for two videos per row
         col1, col2 = st.columns(2)
         
         for i, video_id in enumerate(results):
-            # Generate the YouTube thumbnail URL
             thumbnail_url = f"https://img.youtube.com/vi/{video_id}/hqdefault.jpg"
             video_url = f"https://www.youtube.com/watch?v={video_id}"
             
-            # Set the column based on index (0 for col1, 1 for col2)
             if i % 2 == 0:
                 with col1:
                     st.markdown(f'<a href="{video_url}" target="_blank"><img src="{thumbnail_url}" style="width: 100%; height: auto;" /></a>', unsafe_allow_html=True)
@@ -65,22 +62,19 @@ if search_button and keyword:
                 with col2:
                     st.markdown(f'<a href="{video_url}" target="_blank"><img src="{thumbnail_url}" style="width: 100%; height: auto;" /></a>', unsafe_allow_html=True)
 
-            # Reset columns for next pair
             if i % 2 == 1 or i == len(results) - 1:
                 col1, col2 = st.columns(2)
 
-    elif results:
+    # Show results only if the user clicked the button (after a warning for more than 20 results)
+    elif st.session_state.show_results:
         st.write("Found in these videos:")
         
-        # Set up a grid for two videos per row
         col1, col2 = st.columns(2)
         
         for i, video_id in enumerate(results):
-            # Generate the YouTube thumbnail URL
             thumbnail_url = f"https://img.youtube.com/vi/{video_id}/hqdefault.jpg"
             video_url = f"https://www.youtube.com/watch?v={video_id}"
             
-            # Set the column based on index (0 for col1, 1 for col2)
             if i % 2 == 0:
                 with col1:
                     st.markdown(f'<a href="{video_url}" target="_blank"><img src="{thumbnail_url}" style="width: 100%; height: auto;" /></a>', unsafe_allow_html=True)
@@ -88,7 +82,6 @@ if search_button and keyword:
                 with col2:
                     st.markdown(f'<a href="{video_url}" target="_blank"><img src="{thumbnail_url}" style="width: 100%; height: auto;" /></a>', unsafe_allow_html=True)
 
-            # Reset columns for next pair
             if i % 2 == 1 or i == len(results) - 1:
                 col1, col2 = st.columns(2)
 
