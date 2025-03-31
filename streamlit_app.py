@@ -2,21 +2,16 @@ import os
 import re
 import streamlit as st
 
-def search_subtitles(keyword, directory="subtitles"):
-    keyword = re.sub(r"\s+", "", keyword.lower())  # Remove spaces and lowercase
-    matching_videos = []
-    
-    for filename in os.listdir(directory):
-        if filename.endswith(".txt"):
-            video_id = filename[:-4]  # Remove .txt extension
-            with open(os.path.join(directory, filename), "r", encoding="utf-8") as f:
-                content = f.read()
-                cleaned_content = re.sub(r"\s+", "", content.lower())  # Remove spaces and lowercase
-                
-                if keyword in cleaned_content:
-                    matching_videos.append(video_id)
-    
-    return matching_videos
+# Hide Streamlit menu, footer, and toolbar
+hide_streamlit_style = """
+    <style>
+        #MainMenu {visibility: hidden;}
+        footer {visibility: hidden;}
+        header {visibility: hidden;}
+        .stDeployButton {display: none !important;}  /* Removes 'Deploy' button */
+    </style>
+"""
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 # Set the page title and favicon
 st.set_page_config(page_title="SML Finder", page_icon="https://i.imgur.com/pWQOKtC.png")
@@ -34,6 +29,22 @@ safe_mode = st.checkbox("Lag Mode (view less than 20)", value=True)
 st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
 search_button = st.button("Search")
 st.markdown("</div>", unsafe_allow_html=True)
+
+def search_subtitles(keyword, directory="subtitles"):
+    keyword = re.sub(r"\s+", "", keyword.lower())  # Remove spaces and lowercase
+    matching_videos = []
+    
+    for filename in os.listdir(directory):
+        if filename.endswith(".txt"):
+            video_id = filename[:-4]  # Remove .txt extension
+            with open(os.path.join(directory, filename), "r", encoding="utf-8") as f:
+                content = f.read()
+                cleaned_content = re.sub(r"\s+", "", content.lower())  # Remove spaces and lowercase
+                
+                if keyword in cleaned_content:
+                    matching_videos.append(video_id)
+    
+    return matching_videos
 
 if search_button and keyword:
     # Call the search function
