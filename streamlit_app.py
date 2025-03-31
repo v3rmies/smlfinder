@@ -22,7 +22,7 @@ def search_subtitles(keyword, directory="subtitles"):
 st.set_page_config(page_title="SML Finder", page_icon="https://i.imgur.com/pWQOKtC.png")
 
 # Streamlit UI
-st.markdown("<h1 style='text-align: center;'><img src='https://i.imgur.com/pWQOKtC.png' width='40' height='40' style='vertical-align: middle;' /> Subtitle Search App</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center;'><img src='https://i.imgur.com/pWQOKtC.png' width='40' height='40' style='vertical-align: middle;' /> Find SML vids with funny sentences :D</h1>", unsafe_allow_html=True)
 
 # Input field with placeholder text
 keyword = st.text_input("Enter a word or sentence to search:", "")
