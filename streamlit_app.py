@@ -18,13 +18,11 @@ def search_subtitles(keyword, directory="subtitles"):
     
     return matching_videos
 
-# Streamlit UI with logo next to the title
-logo_url = "https://static.wikia.nocookie.net/sml/images/8/8f/Bowser_Junior_-_Character_-_SML.png/revision/latest?cb=20201118155654"  # Replace with your logo file path or URL
-
-st.markdown(f"""
+# Streamlit UI
+st.markdown("""
     <h1 style='text-align: center;'>
-        <img src="{logo_url}" style="width: 50px; height: auto; vertical-align: middle;" />
-        Subtitle Search App
+        <img src="https://static.wikia.nocookie.net/sml/images/8/8f/Bowser_Junior_-_Character_-_SML.png/revision/latest?cb=20201118155654" style="width: 50px; height: auto; vertical-align: middle;" />
+        SML Finder ~ Zirzux
     </h1>
 """, unsafe_allow_html=True)
 
