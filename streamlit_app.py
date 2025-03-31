@@ -8,15 +8,20 @@ st.set_page_config(page_title="SML Finder ~ Zirzux", page_icon="https://i.imgur.
 # ✅ Hide Streamlit's menu, footer, and deploy button
 hide_streamlit_style = """
     <style>
-        #MainMenu {visibility: hidden;} /* Hide menu */
-        footer {visibility: hidden;} /* Hide footer */
-        header {visibility: hidden;} /* Hide header */
-        .stDeployButton {display: none !important;} /* Hide deploy button */
-        [data-testid="stToolbar"] {display: none !important;} /* Hide "Manage App" button */
+        #MainMenu {visibility: hidden;}
+        footer {visibility: hidden;}
+        header {visibility: hidden;}
+        .stDeployButton {display: none !important;}
     </style>
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
+hide_streamlit_cloud_toolbar = """
+    <style>
+        [data-testid="stToolbar"] {visibility: hidden !important;}
+    </style>
+"""
+st.markdown(hide_streamlit_cloud_toolbar, unsafe_allow_html=True)
 
 # ✅ Streamlit UI Title with Logo
 st.markdown("<h1 style='text-align: center;'><img src='https://i.imgur.com/pWQOKtC.png' width='40' height='40' style='vertical-align: middle;' /> Cuz why not?</h1>", unsafe_allow_html=True)
