@@ -33,7 +33,10 @@ if search_button and keyword:
     # Call the search function
     results = search_subtitles(keyword)
     
-    if results:
+    if len(results) > 20:
+        # Display warning message in red
+        st.markdown("<p style='color: red; font-weight: bold;'>Not able to continue due to more than 20 videos!</p>", unsafe_allow_html=True)
+    elif results:
         st.write("Found in these videos:")
         
         # Set up a grid for two videos per row
