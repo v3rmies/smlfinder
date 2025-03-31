@@ -34,12 +34,13 @@ if search_button and keyword:
     results = search_subtitles(keyword)
     
     if len(results) > 20:
-        # Display warning message in red with clickable "Click to continue" label in yellow
+        # Display warning message in red
         st.markdown("<p style='color: red; font-weight: bold;'>Not able to continue due to more than 20 videos!</p>", unsafe_allow_html=True)
+        
+        # Display the yellow clickable label
         if st.button("Click to continue (LAG)", key="continue_button"):
-            # Display results when button is clicked
             st.write("Found in these videos:")
-
+            
             # Set up a grid for two videos per row
             col1, col2 = st.columns(2)
             
@@ -59,7 +60,6 @@ if search_button and keyword:
                 # Reset columns for next pair
                 if i % 2 == 1 or i == len(results) - 1:
                     col1, col2 = st.columns(2)
-
     elif results:
         st.write("Found in these videos:")
         
