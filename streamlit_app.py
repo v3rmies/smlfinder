@@ -19,10 +19,10 @@ def search_subtitles(keyword, directory="subtitles"):
     return matching_videos
 
 # Set the page title and favicon
-st.set_page_config(page_title="SML Finder ~ Zirzux", page_icon="https://i.imgur.com/pWQOKtC.png")
+st.set_page_config(page_title="SML Finder", page_icon="https://i.imgur.com/pWQOKtC.png")
 
 # Streamlit UI
-st.markdown("<h1 style='text-align: center;'><img src='https://i.imgur.com/pWQOKtC.png' width='40' height='40' style='vertical-align: middle;' /> Subtitle Search App</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center;'><img src='https://i.imgur.com/pWQOKtC.png' width='40' height='40' style='vertical-align: middle;' /> Cuz why not?</h1>", unsafe_allow_html=True)
 
 # Input field with placeholder text
 keyword = st.text_input("Enter a word or sentence to search:", "")
