@@ -22,20 +22,13 @@ def search_subtitles(keyword, directory="subtitles"):
 st.set_page_config(page_title="SML Finder ~ Zirzux", page_icon="https://i.imgur.com/pWQOKtC.png")
 
 # Streamlit UI
-st.markdown("<h1 style='text-align: center;'><img src='https://i.imgur.com/pWQOKtC.png' width='40' height='40' style='vertical-align: middle;' /> Funny sentences :D</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center;'><img src='https://i.imgur.com/pWQOKtC.png' width='40' height='40' style='vertical-align: middle;' /> Subtitle Search App</h1>", unsafe_allow_html=True)
 
 # Input field with placeholder text
 keyword = st.text_input("Enter a word or sentence to search:", "")
 
-# Safe mode checkbox with label (using flexbox for alignment)
-st.markdown("""
-<div style="display: flex; align-items: center; gap: 8px;">
-    <input type="checkbox" id="safe_mode" name="safe_mode" checked disabled>
-    <label for="safe_mode" style="font-size: 16px; color: yellow;">Shows results more than 20</label>
-</div>
-""", unsafe_allow_html=True)
-
-safe_mode = st.checkbox("Safe Mode", value=True)
+# Safe mode checkbox
+safe_mode = st.checkbox("Lag Mode (show more than 20)", value=True)
 
 # Center the button
 st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
