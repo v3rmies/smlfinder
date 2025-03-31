@@ -3,7 +3,7 @@ import re
 import streamlit as st
 
 # ✅ Set page config FIRST before anything else!
-st.set_page_config(page_title="SML Finder ~ Zirzux", page_icon="https://i.imgur.com/pWQOKtC.png")
+st.set_page_config(page_title="SML Finder", page_icon="https://i.imgur.com/pWQOKtC.png")
 
 # ✅ Hide Streamlit's menu, footer, and deploy button
 hide_streamlit_style = """
