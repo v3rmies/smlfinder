@@ -28,7 +28,7 @@ st.markdown("<h1 style='text-align: center;'><img src='https://i.imgur.com/pWQOK
 keyword = st.text_input("Enter a word or sentence to search:", "")
 
 # Safe mode checkbox
-safe_mode = st.checkbox("Lag Mode (show more than 20)", value=True)
+safe_mode = st.checkbox("Lag Mode (view less than 20)", value=True)
 
 # Center the button
 st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
