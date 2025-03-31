@@ -2,30 +2,30 @@ import os
 import re
 import streamlit as st
 
-# Hide Streamlit menu, footer, and toolbar
+# ✅ Set page config FIRST before anything else!
+st.set_page_config(page_title="SML Finder ~ Zirzux", page_icon="https://i.imgur.com/pWQOKtC.png")
+
+# ✅ Hide Streamlit's menu, footer, and deploy button
 hide_streamlit_style = """
     <style>
         #MainMenu {visibility: hidden;}
         footer {visibility: hidden;}
         header {visibility: hidden;}
-        .stDeployButton {display: none !important;}  /* Removes 'Deploy' button */
+        .stDeployButton {display: none !important;}
     </style>
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
-# Set the page title and favicon
-st.set_page_config(page_title="SML Finder", page_icon="https://i.imgur.com/pWQOKtC.png")
-
-# Streamlit UI
+# ✅ Streamlit UI Title with Logo
 st.markdown("<h1 style='text-align: center;'><img src='https://i.imgur.com/pWQOKtC.png' width='40' height='40' style='vertical-align: middle;' /> Cuz why not?</h1>", unsafe_allow_html=True)
 
-# Input field with placeholder text
+# ✅ Input field
 keyword = st.text_input("Enter a word or sentence to search:", "")
 
-# Safe mode checkbox
+# ✅ Safe mode checkbox
 safe_mode = st.checkbox("Lag Mode (view less than 20)", value=True)
 
-# Center the button
+# ✅ Center the button
 st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
 search_button = st.button("Search")
 st.markdown("</div>", unsafe_allow_html=True)
