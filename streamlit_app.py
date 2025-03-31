@@ -27,6 +27,9 @@ st.markdown("<h1 style='text-align: center;'><img src='https://i.imgur.com/pWQOK
 # Input field with placeholder text
 keyword = st.text_input("Enter a word or sentence to search:", "")
 
+# Safe mode checkbox
+safe_mode = st.checkbox("Safe Mode", value=True)
+
 # Center the button
 st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
 search_button = st.button("Search")
@@ -36,8 +39,8 @@ if search_button and keyword:
     # Call the search function
     results = search_subtitles(keyword)
     
-    if len(results) > 20:
-        # Display warning message in red
+    if len(results) > 20 and safe_mode:
+        # Display warning message in red if safe mode is enabled
         st.markdown("<p style='color: red; font-weight: bold;'>Not able to continue due to more than 20 videos!</p>", unsafe_allow_html=True)
     elif results:
         st.write("Found in these videos:")
