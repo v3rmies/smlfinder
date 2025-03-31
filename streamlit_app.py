@@ -19,16 +19,17 @@ def search_subtitles(keyword, directory="subtitles"):
     return matching_videos
 
 # Set the page title and favicon
-st.set_page_config(page_title="SML Finder", page_icon="https://i.imgur.com/pWQOKtC.png")
+st.set_page_config(page_title="SML Finder ~ Zirzux", page_icon="https://i.imgur.com/pWQOKtC.png")
 
 # Streamlit UI
-st.markdown("<h1 style='text-align: center;'><img src='https://i.imgur.com/pWQOKtC.png' width='40' height='40' style='vertical-align: middle;' /> Find SML vids with funny sentences :D</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center;'><img src='https://i.imgur.com/pWQOKtC.png' width='40' height='40' style='vertical-align: middle;' /> Funny sentences :D</h1>", unsafe_allow_html=True)
 
 # Input field with placeholder text
 keyword = st.text_input("Enter a word or sentence to search:", "")
 
-# Safe mode checkbox
+# Safe mode checkbox and label
 safe_mode = st.checkbox("Safe Mode", value=True)
+st.markdown('<span style="color: yellow; font-size: 16px;">Shows results more than 20</span>', unsafe_allow_html=True)
 
 # Center the button
 st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
