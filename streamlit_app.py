@@ -33,7 +33,7 @@ music_enabled = st.checkbox("Enable Music 🎵", value=False)
 
 # If the music checkbox is checked, embed the YouTube playlist
 if music_enabled:
-    playlist_url = "https://www.youtube.com/embed/?listType=playlist&list=YOUR_PLAYLIST_ID&autoplay=1"  # Add autoplay=1
+    playlist_url = "https://www.youtube.com/embed/?listType=playlist&list=PLYbEbOGmf_wa6q5oNKJe8I7k6H6tRnnzV&autoplay=1"  # Add autoplay=1
     components.iframe(playlist_url, width=800, height=450)  # Try removing scrolling and style
 
 # ✅ Input field
