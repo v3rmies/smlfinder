@@ -14,6 +14,7 @@ hide_streamlit_style = """
         footer {visibility: hidden;}
         header {visibility: hidden;}
         .stDeployButton {display: none !important;}
+        .stCheckbox {margin: 0; padding: 0;}
     </style>
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
@@ -28,12 +29,32 @@ st.markdown(hide_streamlit_cloud_toolbar, unsafe_allow_html=True)
 # ✅ Streamlit UI Title with Logo
 st.markdown("<h1 style='text-align: center;'><img src='https://i.imgur.com/pWQOKtC.png' width='40' height='40' style='vertical-align: middle;' /> Cuz why not?</h1>", unsafe_allow_html=True)
 
+# ✅ Custom CSS for checkbox styling and positioning
+st.markdown("""
+    <style>
+        .checkbox-container {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+        }
+        .stCheckbox > label {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 # ✅ Music Icon/Button to toggle playlist
-music_enabled = st.checkbox("Enable Music 🎵", value=False)
+with st.container():
+    st.markdown('<div class="checkbox-container">', unsafe_allow_html=True)
+    music_enabled = st.checkbox("Enable Music 🎵", value=False)
+    st.markdown('</div>', unsafe_allow_html=True)
 
 # If the music checkbox is checked, embed the YouTube playlist
 if music_enabled:
-    playlist_url = "https://www.youtube.com/embed/?listType=playlist&list=PLYbEbOGmf_wa6q5oNKJe8I7k6H6tRnnzV&autoplay=1"  # Add autoplay=1
+    playlist_url = "https://www.youtube.com/embed/?listType=playlist&list=PLJrbUAaaqQuzSL7NOO9ayHlbbi_lGhrOL&autoplay=1"  # Add autoplay=1
     # Set width and height to 1 to effectively hide the player but keep it playing in the background
     components.iframe(playlist_url, width=1, height=1)
 
