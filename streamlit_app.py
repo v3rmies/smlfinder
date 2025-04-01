@@ -14,47 +14,30 @@ hide_streamlit_style = """
         footer {visibility: hidden;}
         header {visibility: hidden;}
         .stDeployButton {display: none !important;}
+        /* Custom styling for the checkbox */
+        .st-checkbox label {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+        .stCheckbox {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 10px;
+        }
+        .stApp {
+            margin-top: 50px;  /* Move content below the checkbox */
+        }
     </style>
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
-hide_streamlit_cloud_toolbar = """
-    <style>
-        [data-testid="stToolbar"] {visibility: hidden !important;}
-    </style>
-"""
-st.markdown(hide_streamlit_cloud_toolbar, unsafe_allow_html=True)
-
 # ✅ Streamlit UI Title with Logo
 st.markdown("<h1 style='text-align: center;'><img src='https://i.imgur.com/pWQOKtC.png' width='40' height='40' style='vertical-align: middle;' /> Cuz why not?</h1>", unsafe_allow_html=True)
 
-# ✅ Custom CSS for checkbox styling and positioning
-st.markdown("""
-    <style>
-        /* Move the checkbox to the top-left corner */
-        .checkbox-container {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            font-size: 16px;
-        }
-        .stCheckbox label {
-            font-weight: bold;
-            font-size: 16px;
-            color: #333;
-            margin-left: 8px;
-        }
-    </style>
-""", unsafe_allow_html=True)
-
 # ✅ Music Icon/Button to toggle playlist
-with st.container():
-    st.markdown('<div class="checkbox-container">', unsafe_allow_html=True)
-    music_enabled = st.checkbox("Enable Music 🎵", value=False)
-    st.markdown('</div>', unsafe_allow_html=True)
+music_enabled = st.checkbox("Enable Music 🎵", value=False)
 
 # If the music checkbox is checked, embed the YouTube playlist
 if music_enabled:
@@ -72,7 +55,6 @@ safe_mode = st.checkbox("Lag Mode (view less than 20)", value=True)
 st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
 search_button = st.button("Search")
 st.markdown("</div>", unsafe_allow_html=True)
-
 
 def normalize_text(text):
     # Convert to lowercase and standardize apostrophes
