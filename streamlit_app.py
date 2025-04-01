@@ -14,7 +14,6 @@ hide_streamlit_style = """
         footer {visibility: hidden;}
         header {visibility: hidden;}
         .stDeployButton {display: none !important;}
-        .stCheckbox {margin: 0; padding: 0;}
     </style>
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
@@ -32,16 +31,21 @@ st.markdown("<h1 style='text-align: center;'><img src='https://i.imgur.com/pWQOK
 # ✅ Custom CSS for checkbox styling and positioning
 st.markdown("""
     <style>
+        /* Move the checkbox to the top-left corner */
         .checkbox-container {
             position: absolute;
-            top: 20px;
-            left: 20px;
+            top: 10px;
+            left: 10px;
             z-index: 9999;
-        }
-        .stCheckbox > label {
+            display: flex;
+            align-items: center;
             font-size: 16px;
+        }
+        .stCheckbox label {
             font-weight: bold;
+            font-size: 16px;
             color: #333;
+            margin-left: 8px;
         }
     </style>
 """, unsafe_allow_html=True)
