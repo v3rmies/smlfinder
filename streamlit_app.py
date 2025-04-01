@@ -83,7 +83,7 @@ if search_button and keyword:
         # Display warning message in red if safe mode is enabled
         st.markdown("<p style='color: red; font-weight: bold;'>Not able to continue due to more than 20 videos!</p>", unsafe_allow_html=True)
     elif results:
-        st.write("Found in these videos:")
+        st.write(f"Found in these videos: {', '.join(results)}")
         
         # Set up a grid for two videos per row
         col1, col2 = st.columns(2)
