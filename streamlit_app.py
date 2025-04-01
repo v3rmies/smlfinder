@@ -1,8 +1,8 @@
 import os
-import random
+import re
 import streamlit as st
 from rapidfuzz.fuzz import ratio
-
+import streamlit.components.v1 as components
 
 # ✅ Set page config FIRST before anything else!
 st.set_page_config(page_title="SML Finder", page_icon="https://i.imgur.com/pWQOKtC.png")
@@ -28,6 +28,14 @@ st.markdown(hide_streamlit_cloud_toolbar, unsafe_allow_html=True)
 # ✅ Streamlit UI Title with Logo
 st.markdown("<h1 style='text-align: center;'><img src='https://i.imgur.com/pWQOKtC.png' width='40' height='40' style='vertical-align: middle;' /> Cuz why not?</h1>", unsafe_allow_html=True)
 
+# ✅ Music Icon/Button to toggle playlist
+music_enabled = st.checkbox("Enable Music 🎵", value=False)
+
+# If the music checkbox is checked, embed the YouTube playlist
+if music_enabled:
+    playlist_url = "https://www.youtube.com/embed/?listType=playlist&list=PLYbEbOGmf_wa6q5oNKJe8I7k6H6tRnnzV"  # Replace with your playlist ID
+    components.iframe(playlist_url, width=800, height=450)
+
 # ✅ Input field
 keyword = st.text_input("Enter a word or sentence to search:", "")
 
@@ -39,38 +47,7 @@ st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
 search_button = st.button("Search")
 st.markdown("</div>", unsafe_allow_html=True)
 
-# ✅ Music toggle checkbox
-music_enabled = st.checkbox("Enable Music", value=False)
 
-# ✅ Music folder path
-music_folder = "music"  # Set your music folder path here
-
-# ✅ Get a list of audio files in the folder
-audio_files = [f for f in os.listdir(music_folder) if f.endswith(('.mp3', '.wav', '.ogg'))]
-
-# Music Player Logic
-if music_enabled and audio_files:
-    # Store the playlist if not done yet
-    if 'playlist' not in st.session_state:
-        st.session_state.playlist = random.sample(audio_files, len(audio_files))
-
-    # Play next song if playlist is not empty
-    if 'current_index' not in st.session_state or st.session_state.current_index >= len(st.session_state.playlist):
-        st.session_state.current_index = 0
-        st.session_state.playlist = random.sample(audio_files, len(audio_files))  # Shuffle playlist again
-
-    # Display the currently playing song
-    current_song = st.session_state.playlist[st.session_state.current_index]
-    st.write(f"Currently Playing: {current_song}")
-
-    # Play the song
-    audio_file_path = os.path.join(music_folder, current_song)
-    st.audio(audio_file_path, format="audio/mp3")
-
-    # Increment to the next song after it finishes
-    st.session_state.current_index += 1
-
-# Functions for searching subtitles and text processing
 def normalize_text(text):
     # Convert to lowercase and standardize apostrophes
     text_no_apostrophe = text.lower().replace("'", "")  # Remove apostrophes
