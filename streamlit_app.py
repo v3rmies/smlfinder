@@ -38,10 +38,10 @@ search_button = st.button("Search")
 st.markdown("</div>", unsafe_allow_html=True)
 
 def normalize_text(text):
-    # Convert to lowercase, remove spaces, and standardize apostrophes
+    # Convert to lowercase and standardize apostrophes
     text_no_apostrophe = text.lower().replace("'", "")  # Remove apostrophes
     text_original = text.lower()
-    text_no_spaces = re.sub(r"\s+", "", text_no_apostrophe)  # Remove spaces
+    text_no_spaces = re.sub(r"\s+", " ", text_no_apostrophe)  # Normalize spaces (keep single spaces)
     return text_no_spaces, text_original
 
 def search_subtitles(keyword, directory="subtitles", threshold=0.8):
@@ -60,9 +60,12 @@ def search_subtitles(keyword, directory="subtitles", threshold=0.8):
                     matching_videos.append(video_id)
                 else:
                     # Try finding approximate matches using difflib
-                    words = re.findall(r"\w+", cleaned_original)
-                    close_matches = get_close_matches(keyword_original, words, cutoff=threshold)
-                    if close_matches:
+                    words = re.findall(r"\b\w+\b", cleaned_original)
+                    keyword_words = keyword_original.split()
+                    close_matches = [get_close_matches(word, words, cutoff=threshold) for word in keyword_words]
+                    
+                    # If a significant portion of words match, consider it a hit
+                    if sum(bool(matches) for matches in close_matches) >= len(keyword_words) * 0.6:
                         matching_videos.append(video_id)
     
     return matching_videos
