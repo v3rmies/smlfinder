@@ -1,8 +1,7 @@
 import os
-import re
+import random
 import streamlit as st
 from rapidfuzz.fuzz import ratio
-
 
 
 # ✅ Set page config FIRST before anything else!
@@ -40,7 +39,38 @@ st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
 search_button = st.button("Search")
 st.markdown("</div>", unsafe_allow_html=True)
 
+# ✅ Music toggle checkbox
+music_enabled = st.checkbox("Enable Music", value=False)
 
+# ✅ Music folder path
+music_folder = "path/to/music/folder"  # Set your music folder path here
+
+# ✅ Get a list of audio files in the folder
+audio_files = [f for f in os.listdir(music_folder) if f.endswith(('.mp3', '.wav', '.ogg'))]
+
+# Music Player Logic
+if music_enabled and audio_files:
+    # Store the playlist if not done yet
+    if 'playlist' not in st.session_state:
+        st.session_state.playlist = random.sample(audio_files, len(audio_files))
+
+    # Play next song if playlist is not empty
+    if 'current_index' not in st.session_state or st.session_state.current_index >= len(st.session_state.playlist):
+        st.session_state.current_index = 0
+        st.session_state.playlist = random.sample(audio_files, len(audio_files))  # Shuffle playlist again
+
+    # Display the currently playing song
+    current_song = st.session_state.playlist[st.session_state.current_index]
+    st.write(f"Currently Playing: {current_song}")
+
+    # Play the song
+    audio_file_path = os.path.join(music_folder, current_song)
+    st.audio(audio_file_path, format="audio/mp3")
+
+    # Increment to the next song after it finishes
+    st.session_state.current_index += 1
+
+# Functions for searching subtitles and text processing
 def normalize_text(text):
     # Convert to lowercase and standardize apostrophes
     text_no_apostrophe = text.lower().replace("'", "")  # Remove apostrophes
