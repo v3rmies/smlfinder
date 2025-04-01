@@ -2,6 +2,9 @@ import os
 import re
 import streamlit as st
 from difflib import get_close_matches
+from difflib import SequenceMatcher
+
+
 # ✅ Set page config FIRST before anything else!
 st.set_page_config(page_title="SML Finder", page_icon="https://i.imgur.com/pWQOKtC.png")
 
@@ -44,6 +47,9 @@ def normalize_text(text):
     text_no_spaces = re.sub(r"\s+", " ", text_no_apostrophe)  # Normalize spaces (keep single spaces)
     return text_no_spaces, text_original
 
+def is_similar(a, b, threshold=0.8):
+    return SequenceMatcher(None, a, b).ratio() >= threshold
+
 def search_subtitles(keyword, directory="subtitles", threshold=0.8):
     keyword_no_apostrophe, keyword_original = normalize_text(keyword)
     matching_videos = []
@@ -59,14 +65,12 @@ def search_subtitles(keyword, directory="subtitles", threshold=0.8):
                 if keyword_no_apostrophe in cleaned_no_apostrophe or keyword_original in cleaned_original:
                     matching_videos.append(video_id)
                 else:
-                    # Try finding approximate matches using difflib
-                    words = re.findall(r"\b\w+\b", cleaned_original)
-                    keyword_words = keyword_original.split()
-                    close_matches = [get_close_matches(word, words, cutoff=threshold) for word in keyword_words]
-                    
-                    # If a significant portion of words match, consider it a hit
-                    if sum(bool(matches) for matches in close_matches) >= len(keyword_words) * 0.6:
-                        matching_videos.append(video_id)
+                    # Check for approximate match in the entire text
+                    sentences = re.split(r'[.!?]', cleaned_original)
+                    for sentence in sentences:
+                        if is_similar(keyword_original, sentence.strip(), threshold):
+                            matching_videos.append(video_id)
+                            break
     
     return matching_videos
 
