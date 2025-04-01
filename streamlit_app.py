@@ -31,10 +31,10 @@ st.markdown("<h1 style='text-align: center;'><img src='https://i.imgur.com/pWQOK
 # ✅ Music Icon/Button to toggle playlist
 music_enabled = st.checkbox("Enable Music 🎵", value=False)
 
-# If the music checkbox is checked, embed the YouTube playlist
+# If the music checkbox is checked, embed the YouTube playlist with autoplay and hidden controls
 if music_enabled:
-    playlist_url = "https://www.youtube.com/embed/?listType=playlist&list=YOUR_PLAYLIST_ID&autoplay=1"  # Add autoplay=1
-    components.iframe(playlist_url, width=800, height=450, scrolling="no", style="border: none;")  # Hide player frame with border:none
+    playlist_url = "https://www.youtube.com/embed/?listType=playlist&list=YOUR_PLAYLIST_ID&autoplay=1&controls=0&mute=1"  # Replace with your playlist ID
+    components.iframe(playlist_url, width=1, height=1)  # Set width and height to 1 to hide the player
 
 # ✅ Input field
 keyword = st.text_input("Enter a word or sentence to search:", "")
