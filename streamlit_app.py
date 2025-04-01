@@ -43,7 +43,7 @@ st.markdown("</div>", unsafe_allow_html=True)
 music_enabled = st.checkbox("Enable Music", value=False)
 
 # ✅ Music folder path
-music_folder = "path/to/music/folder"  # Set your music folder path here
+music_folder = "music"  # Set your music folder path here
 
 # ✅ Get a list of audio files in the folder
 audio_files = [f for f in os.listdir(music_folder) if f.endswith(('.mp3', '.wav', '.ogg'))]
