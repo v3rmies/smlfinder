@@ -1,8 +1,7 @@
 import os
 import re
 import streamlit as st
-from difflib import get_close_matches
-from difflib import SequenceMatcher
+
 
 
 # ✅ Set page config FIRST before anything else!
@@ -40,6 +39,8 @@ st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
 search_button = st.button("Search")
 st.markdown("</div>", unsafe_allow_html=True)
 
+from rapidfuzz.fuzz import ratio
+
 def normalize_text(text):
     # Convert to lowercase and standardize apostrophes
     text_no_apostrophe = text.lower().replace("'", "")  # Remove apostrophes
@@ -47,10 +48,10 @@ def normalize_text(text):
     text_no_spaces = re.sub(r"\s+", " ", text_no_apostrophe)  # Normalize spaces (keep single spaces)
     return text_no_spaces, text_original
 
-def is_similar(a, b, threshold=0.8):
-    return SequenceMatcher(None, a, b).ratio() >= threshold
+def is_similar(a, b, threshold=80):  # RapidFuzz uses a 0-100 scale
+    return ratio(a, b) >= threshold
 
-def search_subtitles(keyword, directory="subtitles", threshold=0.8):
+def search_subtitles(keyword, directory="subtitles", threshold=80):
     keyword_no_apostrophe, keyword_original = normalize_text(keyword)
     matching_videos = []
     
