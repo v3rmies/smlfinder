@@ -1,6 +1,7 @@
 import os
 import re
 import streamlit as st
+from rapidfuzz.fuzz import ratio
 
 
 
@@ -39,7 +40,6 @@ st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
 search_button = st.button("Search")
 st.markdown("</div>", unsafe_allow_html=True)
 
-from rapidfuzz.fuzz import ratio
 
 def normalize_text(text):
     # Convert to lowercase and standardize apostrophes
