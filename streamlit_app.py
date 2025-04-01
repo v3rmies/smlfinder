@@ -1,7 +1,7 @@
 import os
 import re
 import streamlit as st
-
+from difflib import get_close_matches
 # ✅ Set page config FIRST before anything else!
 st.set_page_config(page_title="SML Finder", page_icon="https://i.imgur.com/pWQOKtC.png")
 
@@ -37,8 +37,15 @@ st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
 search_button = st.button("Search")
 st.markdown("</div>", unsafe_allow_html=True)
 
-def search_subtitles(keyword, directory="subtitles"):
-    keyword = re.sub(r"\s+", "", keyword.lower())  # Remove spaces and lowercase
+def normalize_text(text):
+    # Convert to lowercase, remove spaces, and standardize apostrophes
+    text_no_apostrophe = text.lower().replace("'", "")  # Remove apostrophes
+    text_original = text.lower()
+    text_no_spaces = re.sub(r"\s+", "", text_no_apostrophe)  # Remove spaces
+    return text_no_spaces, text_original
+
+def search_subtitles(keyword, directory="subtitles", threshold=0.8):
+    keyword_no_apostrophe, keyword_original = normalize_text(keyword)
     matching_videos = []
     
     for filename in os.listdir(directory):
@@ -46,10 +53,17 @@ def search_subtitles(keyword, directory="subtitles"):
             video_id = filename[:-4]  # Remove .txt extension
             with open(os.path.join(directory, filename), "r", encoding="utf-8") as f:
                 content = f.read()
-                cleaned_content = re.sub(r"\s+", "", content.lower())  # Remove spaces and lowercase
+                cleaned_no_apostrophe, cleaned_original = normalize_text(content)
                 
-                if keyword in cleaned_content:
+                # Check for exact match with and without apostrophes
+                if keyword_no_apostrophe in cleaned_no_apostrophe or keyword_original in cleaned_original:
                     matching_videos.append(video_id)
+                else:
+                    # Try finding approximate matches using difflib
+                    words = re.findall(r"\w+", cleaned_original)
+                    close_matches = get_close_matches(keyword_original, words, cutoff=threshold)
+                    if close_matches:
+                        matching_videos.append(video_id)
     
     return matching_videos
 
