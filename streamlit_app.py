@@ -2,7 +2,8 @@ import os
 import re
 import streamlit as st
 from rapidfuzz.fuzz import ratio
-import streamlit.components.v1 as components
+
+
 
 # ✅ Set page config FIRST before anything else!
 st.set_page_config(page_title="SML Finder", page_icon="https://i.imgur.com/pWQOKtC.png")
@@ -14,36 +15,19 @@ hide_streamlit_style = """
         footer {visibility: hidden;}
         header {visibility: hidden;}
         .stDeployButton {display: none !important;}
-        /* Custom styling for the checkbox */
-        .st-checkbox label {
-            font-size: 16px;
-            font-weight: bold;
-            color: #333;
-        }
-        .stCheckbox {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            padding: 10px;
-        }
-        .stApp {
-            margin-top: 50px;  /* Move content below the checkbox */
-        }
     </style>
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
+hide_streamlit_cloud_toolbar = """
+    <style>
+        [data-testid="stToolbar"] {visibility: hidden !important;}
+    </style>
+"""
+st.markdown(hide_streamlit_cloud_toolbar, unsafe_allow_html=True)
+
 # ✅ Streamlit UI Title with Logo
 st.markdown("<h1 style='text-align: center;'><img src='https://i.imgur.com/pWQOKtC.png' width='40' height='40' style='vertical-align: middle;' /> Cuz why not?</h1>", unsafe_allow_html=True)
-
-# ✅ Music Icon/Button to toggle playlist
-music_enabled = st.checkbox("Enable Music 🎵", value=False)
-
-# If the music checkbox is checked, embed the YouTube playlist
-if music_enabled:
-    playlist_url = "https://www.youtube.com/embed/?listType=playlist&list=PLJrbUAaaqQuzSL7NOO9ayHlbbi_lGhrOL&autoplay=1"  # Add autoplay=1
-    # Set width and height to 1 to effectively hide the player but keep it playing in the background
-    components.iframe(playlist_url, width=1, height=1)
 
 # ✅ Input field
 keyword = st.text_input("Enter a word or sentence to search:", "")
@@ -55,6 +39,7 @@ safe_mode = st.checkbox("Lag Mode (view less than 20)", value=True)
 st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
 search_button = st.button("Search")
 st.markdown("</div>", unsafe_allow_html=True)
+
 
 def normalize_text(text):
     # Convert to lowercase and standardize apostrophes
