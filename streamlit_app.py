@@ -63,7 +63,7 @@ if page == "Search":
         results = search_subtitles(keyword)
         
         if len(results) > 20 and safe_mode:
-            st.markdown("<p style='color: red; font-weight: bold;'>Too many results! Enable safe mode.</p>", unsafe_allow_html=True)
+            st.markdown("<p style='color: red; font-weight: bold;'>Too many results! Disable safe mode.</p>", unsafe_allow_html=True)
         elif results:
             st.write(f"Found {len(results)} videos.")
             col1, col2 = st.columns(2)
@@ -83,4 +83,4 @@ elif page == "Top 15 Searches":
         st.write(f"{i}. {term} ({count} times)")
 
 elif page == "Discord":
-    st.markdown("[Go to Google](https://www.google.com)")
+    st.markdown("[Join the server for suggestions/feedbacks and potentially new stuff!](https://discord.gg/6GtQ2GVCcy)")
