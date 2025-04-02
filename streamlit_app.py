@@ -16,7 +16,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Sidebar navigation
-page = st.sidebar.radio("Navigation", ["Search", "Top 15 Searches", "Discord"])
+page = st.sidebar.radio("JUNIORRRRRR 😡😡", ["Search", "Top 15 Searches", "Discord"])
 
 # Search history storage (session state)
 if "search_history" not in st.session_state:
