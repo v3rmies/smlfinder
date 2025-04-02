@@ -18,36 +18,17 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ✅ Top Navigation Bar
-st.markdown("""
-    <style>
-        .topnav {
-            background-color: #333;
-            overflow: hidden;
-            padding: 10px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-        .topnav button {
-            background-color: #444;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            font-size: 16px;
-            border-radius: 5px;
-        }
-        .topnav button:hover {
-            background-color: #555;
-        }
-    </style>
-    <div class='topnav'>
-        <button onclick="window.location.href='/?page=search'">Search</button>
-        <button onclick="window.location.href='/?page=top15'">Top 15 Searches</button>
-        <button onclick="window.open('https://www.google.com', '_blank')">Discord</button>
-    </div>
-""", unsafe_allow_html=True)
+# ✅ Top Navigation Bar using Streamlit buttons
+st.sidebar.title("Navigation")
+if "page" not in st.session_state:
+    st.session_state.page = "search"
+
+if st.sidebar.button("Search"):
+    st.session_state.page = "search"
+if st.sidebar.button("Top 15 Searches"):
+    st.session_state.page = "top15"
+if st.sidebar.button("Discord"):
+    st.markdown("<meta http-equiv='refresh' content='0;URL=https://www.google.com'>", unsafe_allow_html=True)
 
 # Track search analytics
 SEARCH_HISTORY_FILE = "search_history.txt"
@@ -65,10 +46,7 @@ def get_top_searches():
     return counter.most_common(15)
 
 # ✅ Page Routing
-query_params = st.experimental_get_query_params()
-page = query_params.get("page", ["search"])[0]
-
-if page == "search":
+if st.session_state.page == "search":
     # ✅ Search Page
     st.markdown("""
         <h1 style='text-align: center;'>
@@ -125,7 +103,7 @@ if page == "search":
         else:
             st.write("No matches found.")
 
-elif page == "top15":
+elif st.session_state.page == "top15":
     # ✅ Top 15 Searches Page
     st.markdown("<h2>Top 15 Searches</h2>", unsafe_allow_html=True)
     top_searches = get_top_searches()
