@@ -111,7 +111,10 @@ elif page == "Leaderboards":
 
     # Local leaderboard (current session)
     st.subheader("Local Leaderboard")
-    st.markdown("<img src='https://i.imgur.com/QKFRzgD.png' width='30' height='30' style='vertical-align: middle;' />", unsafe_allow_html=True)
+    st.markdown("""
+        <img src="https://i.imgur.com/QKFRzgD.png" width="30" height="30" style="vertical-align: middle;"/>
+        Local Leaderboard
+    """, unsafe_allow_html=True)
     
     if len(st.session_state.search_history) == 0:
         st.write("1. NOTHING???, CUZ U DIDNT SEARCH ANYTHING")
@@ -122,7 +125,10 @@ elif page == "Leaderboards":
 
     # Global leaderboard (persistent data from JSON)
     st.subheader("Global Leaderboard")
-    st.markdown("<img src='https://i.imgur.com/JrPllmE.png' width='30' height='30' style='vertical-align: middle;' />", unsafe_allow_html=True)
+    st.markdown("""
+        <img src="https://i.imgur.com/JrPllmE.png" width="30" height="30" style="vertical-align: middle;"/>
+        Global Leaderboard
+    """, unsafe_allow_html=True)
 
     global_leaderboard = load_global_leaderboard()
     if not global_leaderboard:
