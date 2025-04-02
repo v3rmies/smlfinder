@@ -110,10 +110,11 @@ elif page == "Leaderboards":
     st.title("Leaderboards")
 
     # Local leaderboard (current session)
-    st.subheader("Local Leaderboard")
     st.markdown("""
-        <img src="https://i.imgur.com/QKFRzgD.png" width="30" height="30" style="vertical-align: middle;"/>
-        Local Leaderboard
+        <h3 style='text-align: left;'>
+            <img src="https://i.imgur.com/QKFRzgD.png" width="30" height="30" style="vertical-align: middle;"/>
+            Local Leaderboard
+        </h3>
     """, unsafe_allow_html=True)
     
     if len(st.session_state.search_history) == 0:
@@ -124,10 +125,11 @@ elif page == "Leaderboards":
             st.write(f"{i}. {term} ({count} times)")
 
     # Global leaderboard (persistent data from JSON)
-    st.subheader("Global Leaderboard")
     st.markdown("""
-        <img src="https://i.imgur.com/JrPllmE.png" width="30" height="30" style="vertical-align: middle;"/>
-        Global Leaderboard
+        <h3 style='text-align: left;'>
+            <img src="https://i.imgur.com/JrPllmE.png" width="30" height="30" style="vertical-align: middle;"/>
+            Global Leaderboard
+        </h3>
     """, unsafe_allow_html=True)
 
     global_leaderboard = load_global_leaderboard()
