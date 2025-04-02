@@ -18,32 +18,34 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ✅ Navigation bar
+# ✅ Top Navigation Bar
 st.markdown("""
     <style>
         .topnav {
-            overflow: hidden;
             background-color: #333;
-            display: flex;
-            justify-content: space-around;
+            overflow: hidden;
             padding: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
         }
-        .topnav a {
+        .topnav button {
+            background-color: #444;
             color: white;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-            font-size: 17px;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
         }
-        .topnav a:hover {
-            background-color: #ddd;
-            color: black;
+        .topnav button:hover {
+            background-color: #555;
         }
     </style>
     <div class='topnav'>
-        <a href='/?page=search'>Search</a>
-        <a href='/?page=top15'>Top 15 Searches</a>
-        <a href='https://www.google.com' target='_blank'>Discord</a>
+        <button onclick="window.location.href='/?page=search'">Search</button>
+        <button onclick="window.location.href='/?page=top15'">Top 15 Searches</button>
+        <button onclick="window.open('https://www.google.com', '_blank')">Discord</button>
     </div>
 """, unsafe_allow_html=True)
 
