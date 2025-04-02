@@ -83,4 +83,4 @@ elif page == "Top 15 Searches":
         st.write(f"{i}. {term} ({count} times)")
 
 elif page == "Discord":
-    st.markdown("[Join the server for suggestions/feedbacks and potentially new stuff!](https://discord.gg/6GtQ2GVCcy)")
+    st.markdown("[Join the server for suggestions/feedbacks and potentially new stuff!](https://www.youtube.com/watch?v=xvFZjo5PgG0)")
