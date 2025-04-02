@@ -5,7 +5,7 @@ from rapidfuzz.fuzz import ratio
 from collections import Counter
 
 # Set page config
-st.set_page_config(page_title="SML Finder", page_icon="https://i.imgur.com/pWQOKtC.png")
+st.set_page_config(page_title="SML Finder", page_icon="https://i.imgur.com/pWQOKtC.png", layout="wide")
 
 # Hide Streamlit UI elements
 st.markdown("""
