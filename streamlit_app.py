@@ -111,16 +111,26 @@ elif page == "Leaderboards":
 
     # Local leaderboard (current session)
     st.subheader("Local Leaderboard")
-    local_top_searches = st.session_state.search_history.most_common(15)
-    for i, (term, count) in enumerate(local_top_searches, 1):
-        st.write(f"{i}. {term} ({count} times)")
+    st.markdown("<img src='https://i.imgur.com/QKFRzgD.png' width='30' height='30' style='vertical-align: middle;' />", unsafe_allow_html=True)
+    
+    if len(st.session_state.search_history) == 0:
+        st.write("1. NOTHING???, CUZ U DIDNT SEARCH ANYTHING")
+    else:
+        local_top_searches = st.session_state.search_history.most_common(15)
+        for i, (term, count) in enumerate(local_top_searches, 1):
+            st.write(f"{i}. {term} ({count} times)")
 
     # Global leaderboard (persistent data from JSON)
     st.subheader("Global Leaderboard")
+    st.markdown("<img src='https://i.imgur.com/JrPllmE.png' width='30' height='30' style='vertical-align: middle;' />", unsafe_allow_html=True)
+
     global_leaderboard = load_global_leaderboard()
-    global_top_searches = sorted(global_leaderboard.items(), key=lambda x: x[1], reverse=True)[:15]
-    for i, (term, count) in enumerate(global_top_searches, 1):
-        st.write(f"{i}. {term} ({count} times)")
+    if not global_leaderboard:
+        st.write("1. NOTHING???, CUZ NO ONE SEARCHED ANYTHING YET")
+    else:
+        global_top_searches = sorted(global_leaderboard.items(), key=lambda x: x[1], reverse=True)[:15]
+        for i, (term, count) in enumerate(global_top_searches, 1):
+            st.write(f"{i}. {term} ({count} times)")
 
 elif page == "Discord":
     st.markdown("[Join the server for suggestions/feedbacks and potentially new stuff!](https://www.youtube.com/watch?v=xvFZjo5PgG0)")
