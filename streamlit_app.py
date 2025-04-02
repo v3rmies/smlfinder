@@ -3,6 +3,7 @@ import re
 import streamlit as st
 from rapidfuzz.fuzz import ratio
 from collections import Counter
+import json
 
 # Set page config
 st.set_page_config(page_title="SML Finder", page_icon="https://i.imgur.com/pWQOKtC.png")
@@ -16,11 +17,32 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Sidebar navigation
-page = st.sidebar.radio("JUNIORRRRRR 😡😡", ["Search", "Top 15 Searches", "Discord"])
+page = st.sidebar.radio("JUNIORRRRRR 😡😡", ["Search", "Leaderboards", "Discord"])
 
 # Search history storage (session state)
 if "search_history" not in st.session_state:
     st.session_state.search_history = Counter()
+
+# Load global leaderboard from JSON file
+def load_global_leaderboard():
+    if os.path.exists("global_leaderboard.json"):
+        with open("global_leaderboard.json", "r") as f:
+            return json.load(f)
+    return {}
+
+# Save global leaderboard to JSON file
+def save_global_leaderboard(leaderboard):
+    with open("global_leaderboard.json", "w") as f:
+        json.dump(leaderboard, f, indent=4)
+
+# Update global leaderboard
+def update_global_leaderboard(search_term):
+    global_leaderboard = load_global_leaderboard()
+    if search_term in global_leaderboard:
+        global_leaderboard[search_term] += 1
+    else:
+        global_leaderboard[search_term] = 1
+    save_global_leaderboard(global_leaderboard)
 
 def normalize_text(text):
     text_no_apostrophe = text.lower().replace("'", "")
@@ -67,6 +89,7 @@ if page == "Search":
 
     if search_button and keyword:
         st.session_state.search_history[keyword] += 1
+        update_global_leaderboard(keyword)  # Update global leaderboard
         results = search_subtitles(keyword)
         
         if len(results) > 20 and safe_mode:
@@ -83,11 +106,20 @@ if page == "Search":
         else:
             st.write("No matches found.")
 
+elif page == "Leaderboards":
+    st.title("Leaderboards")
 
-elif page == "Top 15 Searches":
-    st.title("Top 15 Searches")
-    top_searches = st.session_state.search_history.most_common(15)
-    for i, (term, count) in enumerate(top_searches, 1):
+    # Local leaderboard (current session)
+    st.subheader("Local Leaderboard")
+    local_top_searches = st.session_state.search_history.most_common(15)
+    for i, (term, count) in enumerate(local_top_searches, 1):
+        st.write(f"{i}. {term} ({count} times)")
+
+    # Global leaderboard (persistent data from JSON)
+    st.subheader("Global Leaderboard")
+    global_leaderboard = load_global_leaderboard()
+    global_top_searches = sorted(global_leaderboard.items(), key=lambda x: x[1], reverse=True)[:15]
+    for i, (term, count) in enumerate(global_top_searches, 1):
         st.write(f"{i}. {term} ({count} times)")
 
 elif page == "Discord":
