@@ -53,7 +53,14 @@ def search_subtitles(keyword, directory="subtitles", threshold=80):
     return matching_videos
 
 if page == "Search":
-    st.title("SML Finder")
+    # Add logo next to the title
+    st.markdown("""
+        <h1 style='text-align: center;'>
+            <img src='https://i.imgur.com/pWQOKtC.png' width='40' height='40' style='vertical-align: middle;' />
+            SML Finder
+        </h1>
+    """, unsafe_allow_html=True)
+
     keyword = st.text_input("Enter a word or sentence to search:", "")
     safe_mode = st.checkbox("Lag Mode (view less than 20)", value=True)
     search_button = st.button("Search")
@@ -75,6 +82,7 @@ if page == "Search":
                     st.markdown(f'<a href="{video_url}" target="_blank"><img src="{thumbnail_url}" style="width: 100%;" /></a>', unsafe_allow_html=True)
         else:
             st.write("No matches found.")
+
 
 elif page == "Top 15 Searches":
     st.title("Top 15 Searches")
